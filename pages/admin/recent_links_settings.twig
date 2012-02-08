@@ -1,0 +1,47 @@
+{% extends "layout.twig" %}
+
+{% block title %}${ "Recent Links Settings" | translate("Recent Links Settings") }{% endblock %}
+
+{% block content %}
+            <h1>${ "Recent Links Settings" }</h1>
+            <form id="recent_links_settings" class="split" action="{% admin "recent_links_settings" %}" method="post">
+                <fieldset>
+                    <p>
+                        <label for="recent_links_title">${ "Title" }</label>
+                        <input class="text" type="text" name="recent_links_title" value="${ site.recent_links_title | escape }" id="recent_links_title" />
+						<span class="sub"><?php echo __('Title for your Recent Links.', 'metadata'); ?></span>
+                    </p>
+                    <p>
+                        <label for="recent_links_display_count">${ "Links to Display" }</label>
+                        <input class="text" type="number" name="recent_links_display_count" value="${ site.recent_links_display_count | escape }" id="recent_links_display_count" />
+						<span class="sub"><?php echo __('How many links to display.', 'metadata'); ?></span>
+                    </p>
+                    <p>
+                        <label for="recent_links_reverse_order">${ "Reverse Link Order" }</label>
+                        {% if site.recent_links_reverse_order %}
+                        <input class="checkbox" type="checkbox" name="recent_links_reverse_order" checked="checked" value="reverse" id="recent_links_reverse_order" />
+		                {% else %}
+                        <input class="checkbox" type="checkbox" name="recent_links_reverse_order" value="reverse" id="recent_links_reverse_order" />
+		                {% endif %}
+						<span class="sub"><?php echo __('Whether to display links newest first.', 'metadata'); ?></span>
+                    </p>
+                    <p>
+                        <label for="show_recent_links">${ "Show Recent Links" }</label>
+                        {% if site.show_recent_links %}
+                        <input class="checkbox" type="checkbox" name="show_recent_links" checked="checked" value="show" id="show_recent_links" />
+		                {% else %}
+                        <input class="checkbox" type="checkbox" name="show_recent_links" value="show" id="show_recent_links" />
+		                {% endif %}
+						<span class="sub"><?php echo __('Whether to display recent links.', 'metadata'); ?></span>
+                    </p>
+
+                    <p class="buttons">
+                        <p>
+                            <button type="submit" class="yay">${ "Update" | translate }</button>
+                        </p>
+                    </p>
+
+                    <input type="hidden" name="hash" value="$site.secure_hashkey" id="hash" />
+                </fieldset>
+            </form>
+{% endblock %}

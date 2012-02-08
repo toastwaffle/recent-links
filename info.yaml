@@ -1,0 +1,7 @@
+name: Recent Links
+url: http://github.com/toastwaffle/recent-links
+version: 1.0
+description: Adds a block to the sidebar containing a few links you've recently mentioned.
+author:
+    name: Samuel Littley
+    url: http://www.toastwaffle.com/
