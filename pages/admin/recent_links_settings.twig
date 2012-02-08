@@ -12,6 +12,12 @@
 						<span class="sub"><?php echo __('Title for your Recent Links.', 'metadata'); ?></span>
                     </p>
                     <p>
+                        <label for="recent_links">${ "Recent Links" }</label>
+                        <textarea class="code" name="recent_links" id="recent_links" rows="9" cols="50">${ linkstext | escape }</textarea>
+                                                <br /><span class="sub">Links in your Recent Links box, one per line, in format [Link URL]||[Link Text]</span>
+                    </p>
+
+                    <p>
                         <label for="recent_links_display_count">${ "Links to Display" }</label>
                         <input class="text" type="number" name="recent_links_display_count" value="${ site.recent_links_display_count | escape }" id="recent_links_display_count" />
 						<span class="sub"><?php echo __('How many links to display.', 'metadata'); ?></span>

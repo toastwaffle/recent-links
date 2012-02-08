@@ -31,26 +31,43 @@
 			return $navs;
 		}
 
-		public function admin_recent_links_settings($admin)
-		{
-			$config = Config::current();
-			if(empty($_POST)) {
-				return $admin->display("recent_links_settings");
-			}
-            if (isset($_POST['show_recent_links'])) {
-                $showlinks = True;
-            } else {
-                $showlinks = False;
+            public function admin_recent_links_settings($admin)
+            {
+                $config = Config::current();
+                if(empty($_POST)) {
+                    $links = $config->recent_links;
+                    $linkstext = "";
+                    foreach ($links as $link) {
+                        $linkstext .= $link['url']."||".$link['text']."\n";
+                    }
+                    return $admin->display("recent_links_settings",array("linkstext" => $linkstext));
+                }
+                if (isset($_POST['show_recent_links'])) {
+                    $showlinks = True;
+                } else {
+                    $showlinks = False;
+                }
+                if (isset($_POST['recent_links_reverse_order'])) {
+                    $reverse = True;
+                } else {
+                    $reverse = False;
+                }
+                $lines = explode("\n", $_POST['linkstext']);
+                $lines = array_filter($lines,'trim');
+                $links = array();
+                foreach ($lines as $line) {
+                    $phrases = explode("||",$line);
+                    $link = array("url"=>"","text"=>"");
+                    $link['url'] = trim(array_shift($phrases));
+                    while ($phrase = array_shift($phrases)) {
+                        $link['text'] .= $phrase;
+                    }
+                    $links[] = $link;
+                }
+                if (($config->set("recent_links_title", $_POST['recent_links_title'])) && ($config->set("recent_links_display_count", $_POST['recent_links_display_count'])) && ($config->set("recent_links_reverse_order", $reverse)) && ($config->set("show_recent_links", $showlinks)) && ($config->set("recent_links", $links))) {
+                Flash::notice(__("Settings updated."), "/admin/?action=recent_links_settings");
+                }
             }
-            if (isset($_POST['recent_links_reverse_order'])) {
-                $reverse = True;
-            } else {
-                $reverse = False;
-            }
-			if(($config->set("recent_links_title", $_POST['recent_links_title'])) && ($config->set("recent_links_display_count", $_POST['recent_links_display_count'])) && ($config->set("recent_links_reverse_order", $reverse)) && ($config->set("show_recent_links", $showlinks))) {
-				Flash::notice(__("Settings updated."), "/admin/?action=recent_links_settings");
-			}
-		}
         public function display() {
             $config = Config::current();
             $links = $config->recent_links;
