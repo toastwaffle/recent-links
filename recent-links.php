@@ -84,7 +84,7 @@
                 array_shift($links);
             }
             $links[] = $link;
-            $config->set("recent_links",$links,$true);
+            $config->set("recent_links",$links,true);
         }
         public function find_and_process_links($text) {
             $config = Config::current();
