@@ -77,12 +77,12 @@
             if ($config->recent_links_reverse_order) {
                 $links = array_reverse($links);
             }
-            echo("<h1>".$config->recent_links_title."</h1".PHP_EOL);
-            echo('<ul class="recentlinks"'.PHP_EOL);
+            echo('<div class="recentlinks"><h1>'.$config->recent_links_title."</h1>".PHP_EOL);
+            echo('<ul class="recentlinks">'.PHP_EOL);
             foreach ($links as $link) {
                 echo('<li><a href="'.$link['url'].'">'.$link['text'].'</a></li>'.PHP_EOL);
             }
-            echo('</ul>'.PHP_EOL);
+            echo('</ul></div>'.PHP_EOL);
         }
         public function find_anchors($text) {
             $regex = "/<a .*?href=\"(.*?)\".*?>(.*?)<\/a>/";
@@ -158,7 +158,7 @@
             $this->find_and_process_links($page->body);
         }
     }
-    
+
     $recentlinks = new RecentLinks();
-    
+
 ?>
