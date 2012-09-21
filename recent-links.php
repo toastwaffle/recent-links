@@ -60,8 +60,8 @@
             if ($config->recent_links_reverse_order) {
                 $links = array_reverse($links);
             }
-            echo("<h1>".$config->recent_links_title."</h1".PHP_EOL);
-            echo('<ul class="recentlinks"'.PHP_EOL);
+            echo("<h1>".$config->recent_links_title."</h1>".PHP_EOL);
+            echo('<ul>'.PHP_EOL);
             foreach ($links as $link) {
                 echo('<li><a href="'.$link['url'].'">'.$link['text'].'</a></li>'.PHP_EOL);
             }
@@ -84,7 +84,7 @@
                 array_shift($links);
             }
             $links[] = $link;
-            $config->set("recent_links",$links,$true);
+            $config->set("recent_links",$links,true);
         }
         public function find_and_process_links($text) {
             $config = Config::current();
